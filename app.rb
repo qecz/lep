@@ -19,7 +19,7 @@ init_db
 
 @db.execute 'CREATE TABLE if not exists Posts 
 (
-	id PRIMARY KEY, 
+	id INTEGER PRIMARY KEY AUTOINCREMENT, 
 	Content TEXT, 
 	create_date DATETIME
 )'
@@ -28,7 +28,7 @@ init_db
 (
 	id INTEGER PRIMARY KEY AUTOINCREMENT, 
 	content TEXT, 
-	create_date DATETIME
+	create_date DATETIME,
 	post_id integer
 )'
 
@@ -68,6 +68,9 @@ get '/details/:post_id' do
 
 result = @db.execute 'select * from Posts where id = ?', [post_id]
 @row = result[0]
+
+@comments = @db.execute 'select * from Comments where post_id = ? order by id', [post_id]
+
 	#erb "Displaying info #{post_id}"
 erb :details
 end
@@ -78,6 +81,9 @@ post '/details/:post_id' do
 	post_id = params[:post_id]
 	content = params[:content]
 
-	erb "You typped #{content} for #{post_id}"
+	#erb "You typped #{content} for #{post_id}"
+	@db.execute 'insert into Comments (content, create_date, post_id) values (?, datetime(),?)', [content, post_id]
+
+	redirect to ('/details/'+ post_id)
 	
 end

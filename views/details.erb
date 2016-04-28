@@ -6,15 +6,32 @@
  <br>
 <%=@row['create_date'] %>
 </p>
-
 <br>
 <h4>Comments</h4>
+
+
+<% @comments.each do |post| %>
+
+	<p>
+	<%=post['content'] %>
+<br><br>
+	<font color="#999"> Added at <%=post['create_date'] %> </font>
+	<br>	
+	</p>
+<hr>
+	<% end %>
+
+
+
+
+<h4>Comments добавить</h4>
+
 <form action="/details/<%=@row['id']%>" method="POST" role="form">
   
 <textarea name="content" class="form-control" rows="3"></textarea>
 
 <br>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Добавить коммент</button>
 
 </form>
