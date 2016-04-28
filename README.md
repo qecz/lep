@@ -1,4 +1,4 @@
-sinatra-bootstrap-clean
+LENTA on sinatra-bootstrap-clean
 =======================
 
-Cleaned version of https://github.com/bootstrap-ruby/sinatra-bootstrap
+Blog on cleaned version of https://github.com/bootstrap-ruby/sinatra-bootstrap
