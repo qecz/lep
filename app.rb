@@ -24,6 +24,14 @@ init_db
 	create_date DATETIME
 )'
 
+@db.execute 'CREATE TABLE if not exists Comments 
+(
+	id INTEGER PRIMARY KEY AUTOINCREMENT, 
+	content TEXT, 
+	create_date DATETIME
+	post_id integer
+)'
+
 end
 
 
@@ -64,3 +72,12 @@ result = @db.execute 'select * from Posts where id = ?', [post_id]
 erb :details
 end
 
+#обработчик пост запроса детеилс
+post '/details/:post_id' do
+
+	post_id = params[:post_id]
+	content = params[:content]
+
+	erb "You typped #{content} for #{post_id}"
+	
+end
