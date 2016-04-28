@@ -28,7 +28,9 @@ end
 
 
 get '/' do
-	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
+
+	@result = @db.execute 'select * from Posts order by id desc'
+	erb :index
 end
 
 get '/new' do
@@ -44,9 +46,11 @@ if content.length < 1
 	return erb :new
 end
 
-@db.execute 'insert into Posts (content, create_date) values (?, datetime())', content
+@db.execute 'insert into Posts (content, create_date) values (?, datetime())', [content]
 
-erb "You typped #{content}" 
+#erb "You typped #{content}" 
+
+redirect to '/'
 
 end
 
